@@ -62,6 +62,8 @@ public:
 
   Options *GetOptions() override;
 
+  int HandleArgumentCompletion(CompletionRequest &request, OptionElementVector &opt_element_vector) override;
+
 protected:
   //------------------------------------------------------------------
   // IOHandler::Delegate functions
@@ -79,6 +81,8 @@ protected:
                           CommandReturnObject *result = NULL);
 
   void GetMultilineExpression();
+
+    bool WantsRawCommandString() override { return false; }
 
   OptionGroupOptions m_option_group;
   OptionGroupFormat m_format_options;

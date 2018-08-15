@@ -307,6 +307,16 @@ CommandObjectExpression::~CommandObjectExpression() = default;
 
 Options *CommandObjectExpression::GetOptions() { return &m_option_group; }
 
+int CommandObjectExpression::HandleArgumentCompletion(CompletionRequest &request,
+                                                      OptionElementVector &opt_element_vector)   {
+  CommandCompletions::InvokeCommonCompletionCallbacks(
+          GetCommandInterpreter(),
+          CommandCompletions::eVariablePathCompletion | CommandCompletions::eSymbolCompletion,
+          request,
+          nullptr);
+  return request.GetNumberOfMatches();
+}
+
 static lldb_private::Status
 CanBeUsedForElementCountPrinting(ValueObject &valobj) {
   CompilerType type(valobj.GetCompilerType());
